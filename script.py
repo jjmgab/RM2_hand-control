@@ -1,5 +1,4 @@
-from sympy import *
-import mpmath as mp
+from sympy import Symbol, latex
 import robotics as robo
 
 v = robo.matrix_coord(0,0,0)
