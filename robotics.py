@@ -1,5 +1,6 @@
 import sympy as sym
 import mpmath as mp
+import typing
 
 def matrix_coord(x,y,z):
 	return sym.N(sym.Matrix([
@@ -62,3 +63,15 @@ def matrix_trans(axis, variable, use_degrees=True):
 # defines a Denavit-Hartenberg transformation
 def transformation(Rz, Tz, Tx, Rx, use_degrees=True):
 	return matrix_rot('z', Rz, use_degrees) * matrix_trans('z', Tz, use_degrees) * matrix_trans('x', Tx, use_degrees) * matrix_rot('x', Rx, use_degrees)
+
+# evaluates the matrix
+# to perform multiple substitutions at once, pass a list of (old, new) pairs to subs
+def matrix_evaluate(matrix, subs):
+	# check if subs is a list of tuples with non-zero length
+	assert isinstance(subs, typing.List) and len(subs) > 0 and isinstance(subs[0], typing.Tuple), "Cannot extract substitutions from not a list of tuples."
+	# check if one would like to substitute for existing elements
+	assert not False in [element[0] in matrix.atoms() for element in subs], "Cannot substitute for elements not present in given expression."
+	# check if one would like to evaluate a matrix
+	assert issubclass(matrix.__class__, sym.matrices.MatrixBase), "Cannot evaluate non-matrix."
+	
+	return sym.N(matrix.subs(subs), 5, chop=True)
