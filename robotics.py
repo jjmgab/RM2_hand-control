@@ -1,6 +1,14 @@
 import sympy as sym
 import mpmath as mp
 
+def matrix_coord(x,y,z):
+	return sym.N(sym.Matrix([
+	[ 1,0,0,x ],
+	[ 0,1,0,y ],
+	[ 0,0,1,z ],
+	[ 0,0,0,1,]
+	]), 5, chop=True)
+
 # defines a rotation matrix in Denavit-Hartenberg notation
 def matrix_rot(axis, variable, use_degrees=True):
 	# check if axis provided is correct
