@@ -118,7 +118,7 @@ def m_trans(axis, variable):
 		:rtype: object inheriting from sym.matrices.MatrixBase
 """
 def m_transformation(Rz, Tz, Tx, Rx, use_degrees=True, simplify=True):
-	K = m_rot('z', Rz, use_degrees) * m_trans('z', Tz, use_degrees) * m_trans('x', Tx, use_degrees) * m_rot('x', Rx, use_degrees)
+	K = m_rot('z', Rz, use_degrees) * m_trans('z', Tz) * m_trans('x', Tx) * m_rot('x', Rx, use_degrees)
 	if simplify:
 		K = sym.simplify(K)
 	return K
