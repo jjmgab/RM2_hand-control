@@ -125,7 +125,7 @@ def m_transformation(Rz, Tz, Tx, Rx, use_degrees=True, simplify=True):
 
 
 """
-	Returns equations of motion of an SO(4) matrix.
+	Returns equations of motion of an SO(4) matrix in terms of Cartesian coordinate system.
 
 	:param matrix: evaluated matrix
 	:type matrix: object inheriting from sym.matrices.MatrixBase
