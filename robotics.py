@@ -14,8 +14,8 @@ import numbers
 		:rtype: object inheriting from sym.matrices.MatrixBase
 """
 def m_coord(x,y,z):
-	# checks if parameters ar numbers
-	assert isinstance(z, numbers.Number) and isinstance(y, numbers.Number) and isinstance(z, numbers.Number), "All parameters should be numbers."
+	# checks if parameters ar numbers, symbols or expressions
+	assert len([t for v in [x,y,z] for t in [numbers.Number,sym.Symbol,sym.Mul] if isinstance(v, t)]) == 3, "All parameters should be numbers, symbols or expressions."
 	
 	return sym.N(sym.Matrix([
 	[ 1,0,0,x ],
@@ -43,7 +43,7 @@ def m_rot(axis, variable, use_degrees=True):
 	assert ax in ['x','y','z'], "Invalid axis provided."
 
 	# checks if variable is a Symbol or a number
-	assert isinstance(variable, sym.Symbol) or isinstance(variable, numbers.Number), "'variable' should be a sympy.Symbol or a number."
+	assert len([t for t in [numbers.Number,sym.Symbol,sym.Mul] if isinstance(variable, t)]) == 1, "'variable' should be a sympy.Symbol, a number or an expression."
 
 	# convert to degrees if set to true
 	if not isinstance(variable, sym.Symbol) and use_degrees:
@@ -87,7 +87,7 @@ def m_trans(axis, variable):
 	assert ax in ['x','y','z'], "Invalid axis provided."
 
 	# checks if variable is a Symbol or a number
-	assert isinstance(variable, sym.Symbol) or isinstance(variable, numbers.Number), "'variable' should be a sympy.Symbol or a number."
+	assert len([t for t in [numbers.Number,sym.Symbol,sym.Mul] if isinstance(variable, t)]) == 1, "'variable' should be a sympy.Symbol, a number or an expression."
 
 	var = variable
 
