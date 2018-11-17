@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>hand_model module &mdash; Hand prosthetic model control 0.0.1 documentation</title>
+  <title>Python Module Index &mdash; Hand prosthetic model control 0.0.1 documentation</title>
   
 
   
@@ -28,8 +28,9 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pcontrol package" href="pcontrol.html" />
-    <link rel="prev" title="RM2_hand-control" href="modules.html" /> 
+ 
+
+
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -82,13 +83,8 @@
               
             
             
-              <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">RM2_hand-control</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">hand_model module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pcontrol.html">pcontrol package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html">script module</a></li>
-</ul>
-</li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">code</a></li>
 </ul>
 
             
@@ -134,16 +130,10 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="modules.html">RM2_hand-control</a> &raquo;</li>
-        
-      <li>hand_model module</li>
+      <li>Python Module Index</li>
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/hand_model.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -155,33 +145,63 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="hand-model-module">
-<h1>hand_model module<a class="headerlink" href="#hand-model-module" title="Permalink to this headline">¶</a></h1>
-<p>This module is responsible for defining and calculating the model of the hand prosthetics. After calculations, <em>V</em> (coordinates and orientation) and <em>K</em> (<em>i</em> into <em>i+1</em> joint transformations) matrices are pickled into <em>pickles</em> directory, which can then be unpickled anywhere else - for further processing.</p>
-<p>The aim of creating this module was to carry out calculations concerning assumed model only one, since considered matrices are complex and there is a vast amount of calculations.</p>
-<span class="target" id="module-hand_model"></span><dl class="function">
-<dt id="hand_model.initialization">
-<code class="descclassname">hand_model.</code><code class="descname">initialization</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hand_model.initialization" title="Permalink to this definition">¶</a></dt>
-<dd><p>Carries out all required calculations in order to create assumed model of a hand prosthetic. 
-Matrices are then pickled up into binary files and saved in the <em>pickles</em> directory.</p>
-</dd></dl>
 
-</div>
+   <h1>Python Module Index</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-h"><strong>h</strong></a> | 
+   <a href="#cap-p"><strong>p</strong></a> | 
+   <a href="#cap-s"><strong>s</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-h"><td></td><td>
+       <strong>h</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="hand_model.html#module-hand_model"><code class="xref">hand_model</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-p"><td></td><td>
+       <strong>p</strong></td><td></td></tr>
+     <tr>
+       <td><img src="_static/minus.png" class="toggler"
+              id="toggle-1" style="display: none" alt="-" /></td>
+       <td>
+       <a href="pcontrol.html#module-pcontrol"><code class="xref">pcontrol</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="pcontrol.html#module-pcontrol.finger"><code class="xref">pcontrol.finger</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="pcontrol.html#module-pcontrol.pickle_tools"><code class="xref">pcontrol.pickle_tools</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="pcontrol.html#module-pcontrol.robotics"><code class="xref">pcontrol.robotics</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-s"><td></td><td>
+       <strong>s</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="script.html#module-script"><code class="xref">script</code></a></td><td>
+       <em></em></td></tr>
+   </table>
 
 
            </div>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="pcontrol.html" class="btn btn-neutral float-right" title="pcontrol package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="modules.html" class="btn btn-neutral" title="RM2_hand-control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

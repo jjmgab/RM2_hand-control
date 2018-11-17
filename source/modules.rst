@@ -1,5 +1,5 @@
-RM2_hand-control
-================
+code
+====
 
 .. toctree::
    :maxdepth: 4
