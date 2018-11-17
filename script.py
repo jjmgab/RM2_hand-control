@@ -1,4 +1,4 @@
-import pickle_tools as pt
+import pickle_tools as mt
 
 """
 	First of all, one should run 'hand_model.py', which defines the model of the hand

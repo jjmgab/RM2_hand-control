@@ -1,6 +1,6 @@
 import sympy as sym
 import robotics as robo
-import pickle_tools as pt
+import pickle_tools as mt
 
 # DEFINITION OF THE HAND
 
