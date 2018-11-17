@@ -3,10 +3,21 @@ import os
 import os.path as p
 
 class Finger:
+	"""
+		Defines a finger of a prosthetic hand, a manipulator consisting of n joints.
+	"""
 
-	directory = ''
+	def __init__(self, number: int, njoints: int, fdir: str):
+		"""
+			Class constructor. Unpickles and loads base coordinate matrix and transformation matrices defining corresponding joints.
+			:param number: finger number
+			:param njoints: number of joints of the manipulator
+			:param fdir: directory, where pickled objects are contained
+			:type number: int
+			:type njoints: int
+			:type fdir: str
+		"""
 
-	def __init__(self, number: int, njoints: int, fdir: str = directory):
 		assert p.exists(fdir), "An existing directory must be provided."
 
 		self.directory = fdir
@@ -26,3 +37,27 @@ class Finger:
 			print("Finger {2}: transformation {0}->{1} ready.".format(i, i+1, self.fNumber))
 
 		print("Finger {0} ready.".format(self.fNumber))
+
+	@property
+	def V(self):
+		"""
+			An SO(4) matrix defining initial manipulator coordinates and orientation.
+		"""
+		return self._V
+
+	@V.setter
+	def V(self, value):
+		self._V = value
+
+	@property
+	def K(self):
+		"""
+			A list of transformations between neighboring joints.
+		"""
+		return self._K
+
+	@K.setter
+	def K(self, value):
+		self._K = value
+	
+	
