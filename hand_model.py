@@ -7,18 +7,25 @@ import os.path as p
 
 # DEFINITION OF THE HAND
 
-"""
-	POSITIONS AND ORIENTATIONS
-		described by translation matrix Bi and rotation matrix Ri
-"""
+
 
 def initialization():
+	"""
+	Carries out all required calculations in order to create assumed model of a hand prosthetic. 
+	Matrices are then pickled up into binary files and saved in the *pickles* directory.
+	"""
+
 	print("Running hand model initialization. . . ")
 
 	dirname = "pickles"
 	if p.exists(dirname):
 		shutil.rmtree(dirname)
 	os.mkdir(dirname)
+
+	"""
+	POSITIONS AND ORIENTATIONS
+		described by translation matrix Bi and rotation matrix Ri
+	"""
 
 	# thumb
 	b0x, b0y, b0z = sym.symbols("b_{0x}, b_{0y}, b_{0z}") 

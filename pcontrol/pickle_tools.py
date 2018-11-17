@@ -8,15 +8,16 @@ import os.path as p
 
 """
 
-"""
+def pickle_in(obj, name: str, dirname: str=""):
+	"""
 	Saves object to binary file.
 
 	:param obj: object to dump
 	:param name: filename
 	:type obj: any
 	:type name: string
-"""
-def pickle_in(obj, name: str, dirname: str=""):
+	"""
+		
 	if dirname != "":
 		assert p.exists(dirname), "dirname must be a valid existing directory name."
 		n = dirname+"/"+name
@@ -26,15 +27,16 @@ def pickle_in(obj, name: str, dirname: str=""):
 	pickle.dump(obj, open(n, "wb"))
 
 
-"""
+def pickle_out(name: str, dirname: str=""):
+	"""
 	Loads object from binary file.
 
 	:param name: filename
 	:type name: string
 	:return: unpickled object
 	:rtype: pre-pickle object type (universal)
-"""
-def pickle_out(name: str, dirname: str=""):
+	"""
+
 	if dirname != "":
 		assert p.exists(dirname), "dirname must be a valid existing directory name."
 		n = dirname+"/"+name

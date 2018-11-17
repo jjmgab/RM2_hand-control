@@ -7,13 +7,17 @@ import numbers
 def m_coord(x,y,z):
 	"""
 	Defines a SO(4) matrix defining coordinates in space.
-	
-		:param x: X-coordinate
-		:param y: Y-coordinate
-		:param z: Z-coordinate
-		:return: evaluated matrix
-		:rtype: object inheriting from sym.matrices.MatrixBase
+
+	:param x: X-coordinate
+	:type x: str
+	:param y: Y-coordinate
+	:type y: str
+	:param z: Z-coordinate
+	:type z: str
+	:return: evaluated matrix
+	:rtype: object inheriting from sym.matrices.MatrixBase
 	"""
+	
 	# checks if parameters ar numbers, symbols or expressions
 	assert len([t for v in [x,y,z] for t in [numbers.Number,sym.Symbol,sym.Mul] if isinstance(v, t)]) == 3, "All parameters should be numbers, symbols or expressions."
 	
@@ -27,16 +31,16 @@ def m_coord(x,y,z):
 
 def m_rot(axis, variable, use_degrees=True):
 	"""
-		Defines a rotation matrix in Denavit-Hartenberg notation.
+	Defines a rotation matrix in Denavit-Hartenberg notation.
 
-			:param axis: one of Cartesian coordinate system axes (x, y, z)
-			:param variable: variable defining rotation
-			:param use_degrees: uses degrees if True, uses rads otherwise
-			:type axis: char
-			:type variable: numbers.Number or sympy.Symbol
-			:type use_degrees: bool
-			:return: evaluated matrix
-			:rtype: object inheriting from sym.matrices.MatrixBase
+	:param axis: one of Cartesian coordinate system axes (x, y, z)
+	:param variable: variable defining rotation
+	:param use_degrees: uses degrees if True, uses rads otherwise
+	:type axis: char
+	:type variable: numbers.Number or sympy.Symbol
+	:type use_degrees: bool
+	:return: evaluated matrix
+	:rtype: object inheriting from sym.matrices.MatrixBase
 	"""
 
 	# check if axis provided is correct
@@ -76,12 +80,12 @@ def m_trans(axis, variable):
 	"""
 	Defines a translation matrix in Denavit-Hartenberg notation.
 
-		:param axis: one of Cartesian coordinate system axes (x, y, z)
-		:param variable: variable defining translation
-		:type axis: char
-		:type variable: numbers.Number or sympy.Symbol
-		:return: evaluated matrix
-		:rtype: object inheriting from sym.matrices.MatrixBase
+	:param axis: one of Cartesian coordinate system axes (x, y, z)
+	:param variable: variable defining translation
+	:type axis: char
+	:type variable: numbers.Number or sympy.Symbol
+	:return: evaluated matrix
+	:rtype: object inheriting from sym.matrices.MatrixBase
 	"""
 
 	# check if axis provided is correct
@@ -105,20 +109,20 @@ def m_transformation(Rz, Tz, Tx, Rx, use_degrees=True, simplify=True):
 	"""
 	Defines a transformation in Denavit-Hartenberg notation.
 
-		:param Rz: variable used in z-rotation matrix
-		:param Tz: variable used in z-translation matrix
-		:param Tx: variable used in x-translation matrix
-		:param Rx: variable used in x-rotation matrix
-		:param use_degrees: uses degrees if True, uses rads otherwise
-		:param simplify: simplifies expression if True, does not simplify otherwise
-		:type Rz: numbers.Number or sympy.Symbol
-		:type Tz: numbers.Number or sympy.Symbol
-		:type Tx: numbers.Number or sympy.Symbol
-		:type Rx: numbers.Number or sympy.Symbol
-		:type use_degrees: bool
-		:type simplify: bool
-		:return: evaluated matrix
-		:rtype: object inheriting from sym.matrices.MatrixBase
+	:param Rz: variable used in z-rotation matrix
+	:param Tz: variable used in z-translation matrix
+	:param Tx: variable used in x-translation matrix
+	:param Rx: variable used in x-rotation matrix
+	:param use_degrees: uses degrees if True, uses rads otherwise
+	:param simplify: simplifies expression if True, does not simplify otherwise
+	:type Rz: numbers.Number or sympy.Symbol
+	:type Tz: numbers.Number or sympy.Symbol
+	:type Tx: numbers.Number or sympy.Symbol
+	:type Rx: numbers.Number or sympy.Symbol
+	:type use_degrees: bool
+	:type simplify: bool
+	:return: evaluated matrix
+	:rtype: object inheriting from sym.matrices.MatrixBase
 	"""
 	K = m_rot('z', Rz, use_degrees) * m_trans('z', Tz) * m_trans('x', Tx) * m_rot('x', Rx, use_degrees)
 	if simplify:
