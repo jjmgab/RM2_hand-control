@@ -1,11 +1,14 @@
+from pcontrol import pickle_tools as pt
 import os
-import pickle_tools as pt
+import os.path as p
 
 class Finger:
 
 	directory = ''
 
 	def __init__(self, number: int, njoints: int, fdir: str = directory):
+		assert p.exists(fdir), "An existing directory must be provided."
+
 		self.directory = fdir
 		self.fNumber = number
 

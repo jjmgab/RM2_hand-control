@@ -1,6 +1,6 @@
+from pcontrol import robotics as robo
+from pcontrol import pickle_tools as pt
 import sympy as sym
-import robotics as robo
-import pickle_tools as pt
 import shutil
 import os
 import os.path as p

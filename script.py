@@ -1,9 +1,12 @@
-import robotics as robo
-import pickle_tools as pt
+#import robotics as robo
+#import pickle_tools as pt
+from pcontrol import robotics as robo
+from pcontrol import pickle_tools as pt
+from pcontrol import finger as f
 import sympy as sym
 import numbers
 import os
-import finger as f
+
 
 import time
 

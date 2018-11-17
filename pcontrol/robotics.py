@@ -4,7 +4,8 @@ import typing
 import numbers
 
 
-"""
+def m_coord(x,y,z):
+	"""
 	Defines a SO(4) matrix defining coordinates in space.
 	
 		:param x: X-coordinate
@@ -12,8 +13,7 @@ import numbers
 		:param z: Z-coordinate
 		:return: evaluated matrix
 		:rtype: object inheriting from sym.matrices.MatrixBase
-"""
-def m_coord(x,y,z):
+	"""
 	# checks if parameters ar numbers, symbols or expressions
 	assert len([t for v in [x,y,z] for t in [numbers.Number,sym.Symbol,sym.Mul] if isinstance(v, t)]) == 3, "All parameters should be numbers, symbols or expressions."
 	
@@ -25,19 +25,20 @@ def m_coord(x,y,z):
 	]), 5, chop=True)
 
 
-"""
-	Defines a rotation matrix in Denavit-Hartenberg notation.
-
-		:param axis: one of Cartesian coordinate system axes (x, y, z)
-		:param variable: variable defining rotation
-		:param use_degrees: uses degrees if True, uses rads otherwise
-		:type axis: char
-		:type variable: numbers.Number or sympy.Symbol
-		:type use_degrees: bool
-		:return: evaluated matrix
-		:rtype: object inheriting from sym.matrices.MatrixBase
-"""
 def m_rot(axis, variable, use_degrees=True):
+	"""
+		Defines a rotation matrix in Denavit-Hartenberg notation.
+
+			:param axis: one of Cartesian coordinate system axes (x, y, z)
+			:param variable: variable defining rotation
+			:param use_degrees: uses degrees if True, uses rads otherwise
+			:type axis: char
+			:type variable: numbers.Number or sympy.Symbol
+			:type use_degrees: bool
+			:return: evaluated matrix
+			:rtype: object inheriting from sym.matrices.MatrixBase
+	"""
+
 	# check if axis provided is correct
 	ax = axis.lower()
 	assert ax in ['x','y','z'], "Invalid axis provided."
@@ -71,7 +72,8 @@ def m_rot(axis, variable, use_degrees=True):
 	]), 5, chop=True)
 
 
-"""
+def m_trans(axis, variable):
+	"""
 	Defines a translation matrix in Denavit-Hartenberg notation.
 
 		:param axis: one of Cartesian coordinate system axes (x, y, z)
@@ -80,8 +82,8 @@ def m_rot(axis, variable, use_degrees=True):
 		:type variable: numbers.Number or sympy.Symbol
 		:return: evaluated matrix
 		:rtype: object inheriting from sym.matrices.MatrixBase
-"""
-def m_trans(axis, variable):
+	"""
+
 	# check if axis provided is correct
 	ax = axis.lower()
 	assert ax in ['x','y','z'], "Invalid axis provided."
@@ -99,7 +101,8 @@ def m_trans(axis, variable):
 	]), 5, chop=True)
 
 
-"""
+def m_transformation(Rz, Tz, Tx, Rx, use_degrees=True, simplify=True):
+	"""
 	Defines a transformation in Denavit-Hartenberg notation.
 
 		:param Rz: variable used in z-rotation matrix
@@ -116,23 +119,23 @@ def m_trans(axis, variable):
 		:type simplify: bool
 		:return: evaluated matrix
 		:rtype: object inheriting from sym.matrices.MatrixBase
-"""
-def m_transformation(Rz, Tz, Tx, Rx, use_degrees=True, simplify=True):
+	"""
 	K = m_rot('z', Rz, use_degrees) * m_trans('z', Tz) * m_trans('x', Tx) * m_rot('x', Rx, use_degrees)
 	if simplify:
 		K = sym.simplify(K)
 	return K
 
 
-"""
+def m_eom(matrix):
+	"""
 	Returns equations of motion of an SO(4) matrix in terms of Cartesian coordinate system.
 
 	:param matrix: evaluated matrix
 	:type matrix: object inheriting from sym.matrices.MatrixBase
 	:return: equations of motion of the matrix
 	:rtype: object inheriting from sym.matrices.MatrixBase
-"""
-def m_eom(matrix):
+	"""
+
 	# check if one would like to evaluate a matrix
 	assert issubclass(matrix.__class__, sym.matrices.MatrixBase), "Cannot evaluate non-matrix."
 	# check if matrix is square and 4x4
@@ -141,7 +144,8 @@ def m_eom(matrix):
 	return matrix.col(-1).row_del(3)
 
 
-"""
+def m_jacobian_from_eom(eom, var_prefix=['']):
+	"""
 	Calculates analytical Jacobian from given equations of motion.
 
 	:param eom: vector of equations of motion
@@ -150,8 +154,8 @@ def m_eom(matrix):
 	:type var_prefix: list of one-character strings
 	:return: analytical Jacobian
 	:rtype:	object inheriting from sym.matrices.MatrixBase
-"""
-def m_jacobian_from_eom(eom, var_prefix=['']):
+	"""
+
 	# check if one would like to evaluate a matrix
 	assert issubclass(eom.__class__, sym.matrices.MatrixBase), "Cannot evaluate non-matrix."
 	# check if matrix is 1x3 (SymPy Matrix.shape returns a tuple in format (y,x)!)
@@ -176,7 +180,8 @@ def m_jacobian_from_eom(eom, var_prefix=['']):
 	return M
 
 
-"""
+def m_evaluate(matrix, subs):
+	"""
 	Evaluates the matrix over chosen variable(s).
 	
 	:param matrix: evaluated matrix
@@ -185,8 +190,8 @@ def m_jacobian_from_eom(eom, var_prefix=['']):
 	:type subs: list of tuples
 	:return: evaluated matrix
 	:rtype: object inheriting from sym.matrices.MatrixBase
-"""
-def m_evaluate(matrix, subs):
+	"""
+
 	# check if subs is a list of tuples with non-zero length
 	assert isinstance(subs, typing.List) and len(subs) > 0 and isinstance(subs[0], typing.Tuple), "'subs' must be a list of tuples with non-zero length."
 	# check if one would like to substitute for existing elements
@@ -199,7 +204,8 @@ def m_evaluate(matrix, subs):
 	return sym.N(matrix.subs(subs), 5, chop=True)
 
 
-"""
+def m_process(matrix, simplify=True):
+	"""
 	Processes the matrix.
 	
 	:param matrix: processed matrix
@@ -208,8 +214,8 @@ def m_evaluate(matrix, subs):
 	:type simplify: bool
 	:return: evaluated matrix
 	:rtype: object inheriting from sym.matrices.MatrixBase
-"""
-def m_process(matrix, simplify=True):
+	"""
+
 	# check if one would like to evaluate a matrix
 	assert issubclass(matrix.__class__, sym.matrices.MatrixBase), "Cannot evaluate non-matrix."
 
