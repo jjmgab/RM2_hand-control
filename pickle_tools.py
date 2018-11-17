@@ -16,32 +16,70 @@ import os.path as p
 	:type obj: any
 	:type name: string
 """
-def pickle_in(obj, name: str):
-	pickle.dump(obj, open(name, "wb"))
+def pickle_in(obj, name: str, dirname: str=""):
+	if dirname != "":
+		assert p.exists(dirname), "dirname must be a valid existing directory name."
+		n = dirname+"/"+name
+	else:	
+		n = name
 
-def pickle_out(name: str):
-	assert p.isfile(name), "File to read should exist."
-	return pickle.load(open(name, "rb"))
+	pickle.dump(obj, open(n, "wb"))
+
+
+"""
+	Loads object from binary file.
+
+	:param name: filename
+	:type name: string
+	:return: unpickled object
+	:rtype: pre-pickle object type (universal)
+"""
+def pickle_out(name: str, dirname: str=""):
+	if dirname != "":
+		assert p.exists(dirname), "dirname must be a valid existing directory name."
+		n = dirname+"/"+name
+	else:	
+		n = name
+	assert p.isfile(n), "File to read should exist."
+
+	return pickle.load(open(n, "rb"))
+
 
 # testing
 if __name__ == '__main__':
 	import os
 	import sympy as s
+	import shutil
 
 	name = "testname.p"
 	text = "this is a test name"
 
-	# test 001
+	# test 001a
 	if p.isfile(name):
 		os.remove(name)
 	pickle_in(text, name)
-	assert p.isfile(name), "Test 001 failure: File does not exist"
-	# end of test 001
+	assert p.isfile(name), "Test 001a failure: File does not exist"
+	# end of test 001a
 
-	# test 002
-	assert pickle_out(name) == text, "Test 002 failure: File content corrupted"
+	# test 002a
+	assert pickle_out(name) == text, "Test 002a failure: File content corrupted"
 	os.remove(name)
-	# end of test 002
+	# end of test 002a
+
+	# test 001b
+	directory = "pickletest"
+	if not p.exists(directory):
+		os.mkdir(directory)
+	if p.isfile(directory+"/"+name):
+		os.remove(directory+"/"+name)
+	pickle_in(text, name, directory)
+	assert p.isfile(directory+"/"+name), "Test 001b failure: File does not exist"
+	# end of test 001b
+
+	# test 002b
+	assert pickle_out(name, directory) == text, "Test 002b failure: File content corrupted"
+	shutil.rmtree(directory)
+	# end of test 002b
 
 	# test 003
 	name_003 = "sympy_matrix003.p"
@@ -89,6 +127,5 @@ if __name__ == '__main__':
 	assert pickle_out(name_006) == matrix_006, "Test 006 failure: sympy matrix with symbols not equal"
 	os.remove(name_006)
 	# end of test 005
-
 	
 	print("pickle_tools.py: All tests successful!")
