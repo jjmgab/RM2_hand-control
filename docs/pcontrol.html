@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pcontrol package &mdash; Hand prosthetic model control 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="script module" href="script.html" />
+    <link rel="prev" title="hand_model module" href="hand_model.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Hand prosthetic model control
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">RM2_hand-control</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hand_model.html">hand_model module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pcontrol package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pcontrol.finger">pcontrol.finger module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pcontrol.pickle_tools">pcontrol.pickle_tools module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pcontrol.robotics">pcontrol.robotics module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pcontrol">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="script.html">script module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Hand prosthetic model control</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">RM2_hand-control</a> &raquo;</li>
+        
+      <li>pcontrol package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pcontrol.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pcontrol-package">
+<h1>pcontrol package<a class="headerlink" href="#pcontrol-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pcontrol.finger">
+<span id="pcontrol-finger-module"></span><h2>pcontrol.finger module<a class="headerlink" href="#module-pcontrol.finger" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pcontrol.finger.Finger">
+<em class="property">class </em><code class="descclassname">pcontrol.finger.</code><code class="descname">Finger</code><span class="sig-paren">(</span><em>number: int</em>, <em>njoints: int</em>, <em>fdir: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.finger.Finger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines a finger of a prosthetic hand, a manipulator consisting of n joints.</p>
+<dl class="attribute">
+<dt id="pcontrol.finger.Finger.K">
+<code class="descname">K</code><a class="headerlink" href="#pcontrol.finger.Finger.K" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of transformations between neighboring joints.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pcontrol.finger.Finger.V">
+<code class="descname">V</code><a class="headerlink" href="#pcontrol.finger.Finger.V" title="Permalink to this definition">¶</a></dt>
+<dd><p>An SO(4) matrix defining initial manipulator coordinates and orientation.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pcontrol.pickle_tools">
+<span id="pcontrol-pickle-tools-module"></span><h2>pcontrol.pickle_tools module<a class="headerlink" href="#module-pcontrol.pickle_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pcontrol.pickle_tools.pickle_in">
+<code class="descclassname">pcontrol.pickle_tools.</code><code class="descname">pickle_in</code><span class="sig-paren">(</span><em>obj</em>, <em>name: str</em>, <em>dirname: str = ''</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.pickle_tools.pickle_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves object to binary file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>obj</strong> (<em>any</em>) – object to dump</li>
+<li><strong>name</strong> (<em>string</em>) – filename</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.pickle_tools.pickle_out">
+<code class="descclassname">pcontrol.pickle_tools.</code><code class="descname">pickle_out</code><span class="sig-paren">(</span><em>name: str</em>, <em>dirname: str = ''</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.pickle_tools.pickle_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads object from binary file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>string</em>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">unpickled object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pre-pickle object type (universal)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pcontrol.robotics">
+<span id="pcontrol-robotics-module"></span><h2>pcontrol.robotics module<a class="headerlink" href="#module-pcontrol.robotics" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pcontrol.robotics.m_coord">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_coord</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_coord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a SO(4) matrix defining coordinates in space.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>str</em>) – X-coordinate</li>
+<li><strong>y</strong> (<em>str</em>) – Y-coordinate</li>
+<li><strong>z</strong> (<em>str</em>) – Z-coordinate</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">evaluated matrix</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object inheriting from sym.matrices.MatrixBase</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.m_eom">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_eom</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_eom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns equations of motion of an SO(4) matrix in terms of Cartesian coordinate system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> (<em>object inheriting from sym.matrices.MatrixBase</em>) – evaluated matrix</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">equations of motion of the matrix</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object inheriting from sym.matrices.MatrixBase</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.m_evaluate">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_evaluate</code><span class="sig-paren">(</span><em>matrix</em>, <em>subs</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the matrix over chosen variable(s).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>matrix</strong> (<em>object inheriting from sym.matrices.MatrixBase</em>) – evaluated matrix</li>
+<li><strong>subs</strong> (<em>list of tuples</em>) – list of symbol-value tuples</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">evaluated matrix</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object inheriting from sym.matrices.MatrixBase</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.m_jacobian_from_eom">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_jacobian_from_eom</code><span class="sig-paren">(</span><em>eom, var_prefix=['']</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_jacobian_from_eom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates analytical Jacobian from given equations of motion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>eom</strong> (<em>object inheriting from sym.matrices.MatrixBase</em>) – vector of equations of motion</li>
+<li><strong>var_prefix</strong> (<em>list of one-character strings</em>) – list of prefixes of variables considered as configuration</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">analytical Jacobian</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object inheriting from sym.matrices.MatrixBase</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.m_process">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_process</code><span class="sig-paren">(</span><em>matrix</em>, <em>simplify=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes the matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>matrix</strong> (<em>object inheriting from sym.matrices.MatrixBase</em>) – processed matrix</li>
+<li><strong>simplify</strong> (<em>bool</em>) – simplifies expression if True, does not simplify otherwise</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">evaluated matrix</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object inheriting from sym.matrices.MatrixBase</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.m_rot">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_rot</code><span class="sig-paren">(</span><em>axis</em>, <em>variable</em>, <em>use_degrees=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_rot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a rotation matrix in Denavit-Hartenberg notation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>axis</strong> (<em>char</em>) – one of Cartesian coordinate system axes (x, y, z)</li>
+<li><strong>variable</strong> (<em>numbers.Number</em><em> or </em><em>sympy.Symbol</em>) – variable defining rotation</li>
+<li><strong>use_degrees</strong> (<em>bool</em>) – uses degrees if True, uses rads otherwise</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">evaluated matrix</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object inheriting from sym.matrices.MatrixBase</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.m_trans">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_trans</code><span class="sig-paren">(</span><em>axis</em>, <em>variable</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_trans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a translation matrix in Denavit-Hartenberg notation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>axis</strong> (<em>char</em>) – one of Cartesian coordinate system axes (x, y, z)</li>
+<li><strong>variable</strong> (<em>numbers.Number</em><em> or </em><em>sympy.Symbol</em>) – variable defining translation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">evaluated matrix</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object inheriting from sym.matrices.MatrixBase</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.m_transformation">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_transformation</code><span class="sig-paren">(</span><em>Rz</em>, <em>Tz</em>, <em>Tx</em>, <em>Rx</em>, <em>use_degrees=True</em>, <em>simplify=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_transformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a transformation in Denavit-Hartenberg notation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Rz</strong> (<em>numbers.Number</em><em> or </em><em>sympy.Symbol</em>) – variable used in z-rotation matrix</li>
+<li><strong>Tz</strong> (<em>numbers.Number</em><em> or </em><em>sympy.Symbol</em>) – variable used in z-translation matrix</li>
+<li><strong>Tx</strong> (<em>numbers.Number</em><em> or </em><em>sympy.Symbol</em>) – variable used in x-translation matrix</li>
+<li><strong>Rx</strong> (<em>numbers.Number</em><em> or </em><em>sympy.Symbol</em>) – variable used in x-rotation matrix</li>
+<li><strong>use_degrees</strong> (<em>bool</em>) – uses degrees if True, uses rads otherwise</li>
+<li><strong>simplify</strong> (<em>bool</em>) – simplifies expression if True, does not simplify otherwise</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">evaluated matrix</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object inheriting from sym.matrices.MatrixBase</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pcontrol">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pcontrol" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="script.html" class="btn btn-neutral float-right" title="script module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hand_model.html" class="btn btn-neutral" title="hand_model module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, J. Gabala, M. Kajdak
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
