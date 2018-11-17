@@ -67,5 +67,28 @@ if __name__ == '__main__':
 	os.remove(name_004)
 	# end of test 004
 
+	# test 005
+	name_005 = "sympy_symbols005.p"
+	symbol_005 = s.Symbol('s')
+
+	if p.isfile(name_005):
+		os.remove(name_005)
+	pickle_in(symbol_005, name_005)
+	assert pickle_out(name_005) == symbol_005, "Test 005 failure: sympy symbol not equal"
+	os.remove(name_005)
+	# end of test 005
+
+	# test 006
+	name_006 = "sympy_symbols006.p"
+	s_006 = s.Symbol('s')
+	matrix_006 = s.Matrix([[s_006,0,1],[0,2,s_006]])
+
+	if p.isfile(name_006):
+		os.remove(name_006)
+	pickle_in(matrix_006, name_006)
+	assert pickle_out(name_006) == matrix_006, "Test 006 failure: sympy matrix with symbols not equal"
+	os.remove(name_006)
+	# end of test 005
+
 	
 	print("pickle_tools.py: All tests successful!")

@@ -1,6 +1,6 @@
 import sympy as sym
 import robotics as robo
-import pickle_tools as mt
+import pickle_tools as pt
 
 # DEFINITION OF THE HAND
 
@@ -33,6 +33,11 @@ if __name__ == '__name__':
 	B3 = robo.m_coord(b3x, b3y, b3z)
 	R3 = sym.eye(4)
 	V3 = B3 * R3
+
+	pt.pickle_in(V0, "V0.p")
+	pt.pickle_in(V1, "V1.p")
+	pt.pickle_in(V2, "V2.p")
+	pt.pickle_in(V3, "V3.p")
 
 	"""
 		TRANSFORMATIONS
@@ -72,6 +77,11 @@ if __name__ == '__name__':
 	A332 = robo.m_transformation(T32, 0, L2, 0)
 	A343 = robo.m_transformation(T33, 0, L3, 0)
 	K3 = robo.m_process(A310 * A321 * A332 * A343)
+
+	pt.pickle_in(K0, "K0.p")
+	pt.pickle_in(K1, "K1.p")
+	pt.pickle_in(K2, "K2.p")
+	pt.pickle_in(K3, "K3.p")
 
 
 """
