@@ -30,11 +30,14 @@ class Finger:
 
 		# transformation matrices
 		self.K = []
+		self.K_inv = []
 
 		for i in range(0,njoints):
 			assert 'K{0}{1}'.format(self.fNumber, i) in [x for x in os.listdir(self.directory) if x[0:2] == 'K{0}'.format(self.fNumber)], "There is no data for transformation matrix number {0} of finger {1}.".format(i, self.fNumber)			
+			assert 'K_inv{0}{1}'.format(self.fNumber, i) in [x for x in os.listdir(self.directory) if x[0:2] == 'K_inv{0}'.format(self.fNumber)], "There is no data for transformation matrix number {0} of finger {1}.".format(i, self.fNumber)
 			self.K.append(pt.pickle_out('K{0}{1}'.format(self.fNumber, i), self.directory))
-			print("Finger {2}: transformation {0}->{1} ready.".format(i, i+1, self.fNumber))
+			self.K_inv.append(pt.pickle_out('K_inv{0}{1}'.format(self.fNumber,i),self.directory))
+			print("Finger {2}: transformation {0}->{1} and {1}->{0} ready .".format(i, i+1, self.fNumber))
 
 		print("Finger {0} ready.".format(self.fNumber))
 
@@ -59,5 +62,15 @@ class Finger:
 	@K.setter
 	def K(self, value):
 		self._K = value
-	
-	
+
+	@property
+	def K_inv(self):
+		"""
+            A list of inverse transformations between neighboring joints.
+        """
+		return self._K_inv
+
+	@K_inv.setter
+	def K_inv(self, value):
+		self._K_inv = value
+

@@ -2,6 +2,8 @@ import sympy as sym
 import mpmath as mp
 import typing
 import numbers
+from pcontrol import finger
+from sympy import Point3D
 
 
 def m_coord(x, y, z):
@@ -237,6 +239,7 @@ def m_process(matrix, simplify=True):
 
     return M
 
+
 def m_transpose(matrix) -> sym.matrices.MatrixBase:
     """
     Returns transpose of matrix.
@@ -249,12 +252,13 @@ def m_transpose(matrix) -> sym.matrices.MatrixBase:
 
     return matrix.T
 
+
 def m_inverse_SE3(matrix) -> sym.matrices.MatrixBase:
     """
     Return inverse matrix of in:matrix in SE(3).
 
     :param matrix: processed matrix
-    :type matrix: object inheriting from sym.matrices.MatrixBase
+    :type: matrix: object inheriting from sym.matrices.MatrixBase
     :return: inverse matrix
     :rtype: object inheriting from sym.matrices.MatrixBase
     """
@@ -264,27 +268,64 @@ def m_inverse_SE3(matrix) -> sym.matrices.MatrixBase:
     # check if matrix is square and 4x4
     assert (matrix.shape)[0] == 4 and (matrix.shape)[1] == 4, "Matrix must be square and 4x4."
 
-    R = matrix[:3,:3]
-    T = matrix[3,3]
-    R_T = m_transpose(R)
-    inversed = R_T
-    inversed.col_insert(3,m_process(-R_T*T))
-    inversed.row_insert(3,[0,0,0,1])
+    assert sym.det(matrix) != 0, "Determinant of matrix cannot be equal to zero"
 
-    return inversed
+    return matrix ** -1
 
 
-def inv_kinematics_newton(start_coords, stop_coords, transformation):
+class NewtonAlgorithmParameters(object):
+    def __init__(self, min_step_size, max_step_size, epsilon, max_iterations):
+        self.min_step_size = min_step_size
+        self.max_step_size = max_step_size
+        self.epsilon = epsilon
+        self.max_iterations = max_iterations
+
+
+def inv_kinematics_newton_algorithm(start_stop, joints_transformations, newton_alg_parameters):
     """
+    Implementation of Newton algorithm for inverse kinematics.
 
-    :param start_coords:
-    :param stop_coords:
-    :param transformation:
+    :param start_stop:
+    :type: tuple of 2 elements of type sympy.Point3D
+    :param transformations:
+    :type: list of lists - [[joint],[joint],[joint]]
+    :param ssize: size step to algorithm
+    :type:
+    :param joints: vector of joints that calculation is needed for
+    :type:
     :return:
     """
-    # check if one would like to evaluate a matrix
-    assert issubclass(transformation.__class__, sym.matrices.MatrixBase), "Cannot evaluate non-matrix."
-    # check if matrix is square and 4x4
-    assert transformation.shape[0] == 4 and transformation.shape[1] == 4, "Matrix must be square and 4x4."
 
-    #transformation^-1 ?
+    # check if start_stop is a tuple with length 2
+    assert type(start_stop) == tuple and len(start_stop) == 2, "start_stop  have to be tuple with length 2"
+    # check if coords are vectors in R^3
+    assert isinstance(start_stop[0], Point3D) and isinstance(start_stop[1],
+                                                             Point3D), "Coords have to be of type sympy.vector.CoordSys3D"
+
+    trajectory = []
+    for transformation in joints_transformations:
+        e = start_stop[0].distance(start_stop[1])
+        currentPosition = start_stop[0]
+        iteration = 0
+        step = newton_alg_parameters.max_step_size
+        joint_moves = []
+        while True \
+                and e > newton_alg_parameters.epsilon \
+                and iteration < newton_alg_parameters.max_iterations \
+                and step >= newton_alg_parameters.min_step_size:
+
+            newStart = Point3D()
+            newEpsilon = newStart.distance(start_stop[1])
+
+            if newEpsilon < e:
+                e = newEpsilon
+                currentPosition = newStart
+            else:
+                # bisection of step
+                step /= 2
+
+            iteration += 1
+
+        trajectory.append(joint_moves)
+
+    return trajectory

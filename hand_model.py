@@ -61,22 +61,26 @@ def initialization():
 			each joint is described by transformation matrix Aijk
 			final transformation is described by the matrix Ki
 	"""
-	d1, L0, L1, L2, L3 = sym.symbols("d_1, L_0, L_1, L_2, L_3")
+	PI,d1, L0, L1, L2, L3 = sym.symbols("\pi, d_1, L_0, L_1, L_2, L_3")
 
 	# thumb
 	T00, T01, T02, T03 = sym.symbols("\Theta_{00}, \Theta_{01}, \Theta_{02}, \Theta_{03}")
-	A010 = robo.m_transformation(T00,  0,  0,  sym.pi/4)
-	A021 = robo.m_transformation(T01, -d1, L1, sym.pi/2)
+	A010 = robo.m_transformation(T00,  0,  0,  PI/4)
+	A021 = robo.m_transformation(T01, -d1, L1, PI/2)
 	A032 = robo.m_transformation(T02,  0,  L2, 0)
 	A043 = robo.m_transformation(T03,  0,  L3, 0)
 	K00 = robo.m_process(A010)
 	K01 = robo.m_process(K00 * A021)
 	K02 = robo.m_process(K01 * A032)
 	K03 = robo.m_process(K02 * A043)
+	K_inv00 = robo.m_inverse_SE3(K00)
+	K_inv01 = robo.m_inverse_SE3(K01)
+	K_inv02 = robo.m_inverse_SE3(K02)
+	K_inv03 = robo.m_inverse_SE3(K03)
 
 	# first finger
 	T10, T11, T12, T13 = sym.symbols("\Theta_{10}, \Theta_{11}, \Theta_{12}, \Theta_{13}")
-	A110 = robo.m_transformation(T10, 0, L0, sym.pi/2)
+	A110 = robo.m_transformation(T10, 0, L0, PI/2)
 	A121 = robo.m_transformation(T11, 0, L1, 0)
 	A132 = robo.m_transformation(T12, 0, L2, 0)
 	A143 = robo.m_transformation(T13, 0, L3, 0)
@@ -84,10 +88,14 @@ def initialization():
 	K11 = robo.m_process(K10 * A121)
 	K12 = robo.m_process(K11 * A132)
 	K13 = robo.m_process(K12 * A143)
+	K_inv10 = robo.m_inverse_SE3(K10)
+	K_inv11 = robo.m_inverse_SE3(K11)
+	K_inv12 = robo.m_inverse_SE3(K12)
+	K_inv13 = robo.m_inverse_SE3(K13)
 
 	# second finger
 	T20, T21, T22, T23 = sym.symbols("\Theta_{20}, \Theta_{21}, \Theta_{22}, \Theta_{23}")
-	A210 = robo.m_transformation(T20, 0, L0, sym.pi/2)
+	A210 = robo.m_transformation(T20, 0, L0, PI/2)
 	A221 = robo.m_transformation(T21, 0, L1, 0)
 	A232 = robo.m_transformation(T22, 0, L2, 0)
 	A243 = robo.m_transformation(T23, 0, L3, 0)
@@ -95,10 +103,14 @@ def initialization():
 	K21 = robo.m_process(K20 * A221)
 	K22 = robo.m_process(K21 * A232)
 	K23 = robo.m_process(K22 * A243)
+	K_inv20 = robo.m_inverse_SE3(K20)
+	K_inv21 = robo.m_inverse_SE3(K21)
+	K_inv22 = robo.m_inverse_SE3(K22)
+	K_inv23 = robo.m_inverse_SE3(K23)
 
 	# third finger
 	T30, T31, T32, T33 = sym.symbols("\Theta_{30}, \Theta_{31}, \Theta_{32}, \Theta_{33}")
-	A310 = robo.m_transformation(T30, 0, L0, sym.pi/2)
+	A310 = robo.m_transformation(T30, 0, L0, PI/2)
 	A321 = robo.m_transformation(T31, 0, L1, 0)
 	A332 = robo.m_transformation(T32, 0, L2, 0)
 	A343 = robo.m_transformation(T33, 0, L3, 0)
@@ -106,27 +118,50 @@ def initialization():
 	K31 = robo.m_process(K30 * A321)
 	K32 = robo.m_process(K31 * A332)
 	K33 = robo.m_process(K32 * A343)
+	K_inv30 = robo.m_inverse_SE3(K30)
+	K_inv31 = robo.m_inverse_SE3(K31)
+	K_inv32 = robo.m_inverse_SE3(K32)
+	K_inv33 = robo.m_inverse_SE3(K33)
 
 	# pickleize all transformation matrices
 	pt.pickle_in(K00, "K00", dirname)
 	pt.pickle_in(K01, "K01", dirname)
 	pt.pickle_in(K02, "K02", dirname)
 	pt.pickle_in(K03, "K03", dirname)
+	pt.pickle_in(K_inv00, "K_inv00", dirname)
+	pt.pickle_in(K_inv01, "K_inv01", dirname)
+	pt.pickle_in(K_inv02, "K_inv02", dirname)
+	pt.pickle_in(K_inv03, "K_inv03", dirname)
 
 	pt.pickle_in(K10, "K10", dirname)
 	pt.pickle_in(K11, "K11", dirname)
 	pt.pickle_in(K12, "K12", dirname)
 	pt.pickle_in(K13, "K13", dirname)
 
+	pt.pickle_in(K_inv10, "K_inv10", dirname)
+	pt.pickle_in(K_inv11, "K_inv11", dirname)
+	pt.pickle_in(K_inv12, "K_inv12", dirname)
+	pt.pickle_in(K_inv13, "K_inv13", dirname)
+
 	pt.pickle_in(K20, "K20", dirname)
 	pt.pickle_in(K21, "K21", dirname)
 	pt.pickle_in(K22, "K22", dirname)
 	pt.pickle_in(K23, "K23", dirname)
 
+	pt.pickle_in(K_inv20, "K_inv20", dirname)
+	pt.pickle_in(K_inv21, "K_inv21", dirname)
+	pt.pickle_in(K_inv22, "K_inv22", dirname)
+	pt.pickle_in(K_inv23, "K_inv23", dirname)
+
 	pt.pickle_in(K30, "K30", dirname)
 	pt.pickle_in(K31, "K31", dirname)
 	pt.pickle_in(K32, "K32", dirname)
 	pt.pickle_in(K33, "K33", dirname)
+
+	pt.pickle_in(K_inv30, "K_inv30", dirname)
+	pt.pickle_in(K_inv31, "K_inv31", dirname)
+	pt.pickle_in(K_inv32, "K_inv32", dirname)
+	pt.pickle_in(K_inv33, "K_inv33", dirname)
 
 	print("done!")
 
