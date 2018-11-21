@@ -27,7 +27,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="script module" href="script.html" />
+    <link rel="prev" title="hand_model module" href="hand_model.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,8 +82,20 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">html</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hand_model.html">hand_model module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pcontrol package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pcontrol.finger">pcontrol.finger module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pcontrol.pickle_tools">pcontrol.pickle_tools module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pcontrol.robotics">pcontrol.robotics module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pcontrol">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="script.html">script module</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -127,6 +141,8 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
+          <li><a href="modules.html">code</a> &raquo;</li>
+        
       <li>pcontrol package</li>
     
     
@@ -155,13 +171,32 @@
 <span id="pcontrol-finger-module"></span><h2>pcontrol.finger module<a class="headerlink" href="#module-pcontrol.finger" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pcontrol.finger.Finger">
-<em class="property">class </em><code class="descclassname">pcontrol.finger.</code><code class="descname">Finger</code><span class="sig-paren">(</span><em>number: int</em>, <em>njoints: int</em>, <em>fdir: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.finger.Finger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pcontrol.finger.</code><code class="descname">Finger</code><span class="sig-paren">(</span><em>number: int</em>, <em>njoints: int</em>, <em>fdir: str</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.finger.Finger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines a finger of a prosthetic hand, a manipulator consisting of n joints.</p>
+<dl class="class">
+<dt id="pcontrol.finger.Finger.Joint">
+<em class="property">class </em><code class="descname">Joint</code><span class="sig-paren">(</span><em>jointcoordinates: sympy.geometry.point.Point3D</em>, <em>K</em>, <em>K_inv</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.finger.Finger.Joint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines a joint of a finger,</p>
 <dl class="attribute">
-<dt id="pcontrol.finger.Finger.K">
-<code class="descname">K</code><a class="headerlink" href="#pcontrol.finger.Finger.K" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of transformations between neighboring joints.</p>
+<dt id="pcontrol.finger.Finger.Joint.K">
+<code class="descname">K</code><a class="headerlink" href="#pcontrol.finger.Finger.Joint.K" title="Permalink to this definition">¶</a></dt>
+<dd><p>A transformation related to a joint.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pcontrol.finger.Finger.Joint.K_inv">
+<code class="descname">K_inv</code><a class="headerlink" href="#pcontrol.finger.Finger.Joint.K_inv" title="Permalink to this definition">¶</a></dt>
+<dd><p>A inverse of a transformation related to a joint.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pcontrol.finger.Finger.Joint.coordinates">
+<code class="descname">coordinates</code><a class="headerlink" href="#pcontrol.finger.Finger.Joint.coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>3Dcoordinations of a joint.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="attribute">
@@ -214,6 +249,18 @@
 </div>
 <div class="section" id="module-pcontrol.robotics">
 <span id="pcontrol-robotics-module"></span><h2>pcontrol.robotics module<a class="headerlink" href="#module-pcontrol.robotics" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pcontrol.robotics.NewtonAlgorithmParameters">
+<em class="property">class </em><code class="descclassname">pcontrol.robotics.</code><code class="descname">NewtonAlgorithmParameters</code><span class="sig-paren">(</span><em>min_step_size</em>, <em>max_step_size</em>, <em>epsilon</em>, <em>max_iterations</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.NewtonAlgorithmParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.inv_kinematics_newton_algorithm">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">inv_kinematics_newton_algorithm</code><span class="sig-paren">(</span><em>finger: pcontrol.finger.Finger</em>, <em>stop_coords</em>, <em>parameters: pcontrol.robotics.NewtonAlgorithmParameters</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.inv_kinematics_newton_algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of Newton algorithm for inverse kinematics.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="pcontrol.robotics.m_coord">
 <code class="descclassname">pcontrol.robotics.</code><code class="descname">m_coord</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#pcontrol.robotics.m_coord" title="Permalink to this definition">¶</a></dt>
@@ -276,6 +323,26 @@
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object inheriting from sym.matrices.MatrixBase</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pcontrol.robotics.m_inverse_SE3">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_inverse_SE3</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span> &#x2192; sympy.matrices.matrices.MatrixBase<a class="headerlink" href="#pcontrol.robotics.m_inverse_SE3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return inverse matrix of in:matrix in SE(3).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> – processed matrix</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">matrix: object inheriting from sym.matrices.MatrixBase</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">inverse matrix</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">object inheriting from sym.matrices.MatrixBase</td>
 </tr>
 </tbody>
 </table>
@@ -406,6 +473,22 @@
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="pcontrol.robotics.m_transpose">
+<code class="descclassname">pcontrol.robotics.</code><code class="descname">m_transpose</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span> &#x2192; sympy.matrices.matrices.MatrixBase<a class="headerlink" href="#pcontrol.robotics.m_transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns transpose of matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> – processed matrix</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">transposed matrix</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pcontrol">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pcontrol" title="Permalink to this headline">¶</a></h2>
@@ -417,6 +500,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="script.html" class="btn btn-neutral float-right" title="script module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hand_model.html" class="btn btn-neutral" title="hand_model module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -155,9 +155,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-hand_model">
-<span id="hand-model-module"></span><h1>hand_model module<a class="headerlink" href="#module-hand_model" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+  <div class="section" id="hand-model-module">
+<h1>hand_model module<a class="headerlink" href="#hand-model-module" title="Permalink to this headline">¶</a></h1>
+<p>This module is responsible for defining and calculating the model of the hand prosthetics. After calculations, <em>V</em> (coordinates and orientation) and <em>K</em> (<em>i</em> into <em>i+1</em> joint transformations) matrices are pickled into <em>pickles</em> directory, which can then be unpickled anywhere else - for further processing.</p>
+<p>The aim of creating this module was to carry out calculations concerning assumed model only one, since considered matrices are complex and there is a vast amount of calculations.</p>
+<span class="target" id="module-hand_model"></span><dl class="function">
 <dt id="hand_model.initialization">
 <code class="descclassname">hand_model.</code><code class="descname">initialization</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hand_model.initialization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Carries out all required calculations in order to create assumed model of a hand prosthetic. 
