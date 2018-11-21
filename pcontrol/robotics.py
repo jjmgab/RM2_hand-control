@@ -2,7 +2,7 @@ import sympy as sym
 import mpmath as mp
 import typing
 import numbers
-from pcontrol import finger
+import pcontrol
 from sympy import Point3D
 
 
@@ -281,51 +281,43 @@ class NewtonAlgorithmParameters(object):
         self.max_iterations = max_iterations
 
 
-def inv_kinematics_newton_algorithm(start_stop, joints_transformations, newton_alg_parameters):
+def inv_kinematics_newton_algorithm(finger: pcontrol.finger, stop_coords, parameters: NewtonAlgorithmParameters):
     """
     Implementation of Newton algorithm for inverse kinematics.
 
-    :param start_stop:
-    :type: tuple of 2 elements of type sympy.Point3D
-    :param transformations:
-    :type: list of lists - [[joint],[joint],[joint]]
-    :param ssize: size step to algorithm
-    :type:
-    :param joints: vector of joints that calculation is needed for
-    :type:
-    :return:
     """
+    assert type(stop_coords) == list and len(stop_coords) == len(finger.joints)\
+        , 'stop_coords must be list with length equal number of joints in finger'
 
-    # check if start_stop is a tuple with length 2
-    assert type(start_stop) == tuple and len(start_stop) == 2, "start_stop  have to be tuple with length 2"
-    # check if coords are vectors in R^3
-    assert isinstance(start_stop[0], Point3D) and isinstance(start_stop[1],
-                                                             Point3D), "Coords have to be of type sympy.vector.CoordSys3D"
-
+    #poszedlem mimo wszystko w obliczenie trajektorii dla jointow po kolei, zmienimy to
     trajectory = []
-    for transformation in joints_transformations:
-        e = start_stop[0].distance(start_stop[1])
-        currentPosition = start_stop[0]
+    jointNumber = 0
+    for joint in finger.joints:
+        e = joint.coordinates.distance(stop_coords[jointNumber])
+        currentPosition = joint.coordinates
         iteration = 0
-        step = newton_alg_parameters.max_step_size
+        step = parameters.max_step_size
         joint_moves = []
         while True \
-                and e > newton_alg_parameters.epsilon \
-                and iteration < newton_alg_parameters.max_iterations \
-                and step >= newton_alg_parameters.min_step_size:
+                and iteration < parameters.max_iterations \
+                and e > parameters.epsilon \
+                and step >= parameters.min_step_size:
 
-            newStart = Point3D()
-            newEpsilon = newStart.distance(start_stop[1])
+#             TODO jak obliczyć nie wiedząc które q potrzebne
+            newStart = currentPosition # m_evaluate(finger.K(jointNumber)) -- tutaj chce obliczyc nowe miejsce przegubu(efektora) w przestrzeni
+            newEpsilon = newStart.distance(stop_coords[jointNumber])
 
-            if newEpsilon < e:
+            #sprawdzam czy nowy blad jest mniejszy od poprzedniego
+            if newEpsilon < e:              # jesli tak to przyjmuje rozwiazanie
                 e = newEpsilon
                 currentPosition = newStart
-            else:
+            else:                           #jesli nie to dziele krok na pol i probuje isc dalej
                 # bisection of step
                 step /= 2
 
             iteration += 1
 
         trajectory.append(joint_moves)
+        jointNumber += 1
 
     return trajectory

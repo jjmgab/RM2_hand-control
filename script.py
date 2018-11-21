@@ -21,13 +21,21 @@ if __name__ == '__main__':
     #
     # t_start = time.time()
     #
-    for i in range(0, 4):
-        fingers.append(f.Finger(i, 4, directory))
+    # for i in range(0, 4):
+    #     fingers.append(f.Finger(i, 4, directory))
+    #
+    # print(fingers[0].K[2])
 
-    print(fingers[0].K[2])
+    theta = sym.symbols("\Theta")
+    mat = sym.Matrix([[cos(theta), -sin(theta), 0, 0],
+                      [sin(theta), cos(theta), 0, 0],
+                      [0, 0, 1, 0],
+                      [0, 0, 0, 1]])
 
-    pprint(fingers[0].K_inv[0])
-    # t_end = time.time()
+    transposed = robo.m_transpose(mat)
+    inversed = robo.m_inverse_SE3(mat)
+
+    t_end = time.time()
 
     print("End script.")
-    # print("Time elapsed: {0:.5f} seconds".format(t_end - t_start))
+    print("Time elapsed: {0:.5f} seconds".format(t_end - t_start))
