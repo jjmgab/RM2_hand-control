@@ -17,23 +17,15 @@ if __name__ == '__main__':
     directory = 'pickles'
     fingers = []
 
-    # print("Begin script.")
-    #
-    # t_start = time.time()
-    #
-    # for i in range(0, 4):
-    #     fingers.append(f.Finger(i, 4, directory))
-    #
-    # print(fingers[0].K[2])
-
-    theta = sym.symbols("\Theta")
-    mat = sym.Matrix([[cos(theta), -sin(theta), 0, 0],
-                      [sin(theta), cos(theta), 0, 0],
-                      [0, 0, 1, 0],
-                      [0, 0, 0, 1]])
-
-    transposed = robo.m_transpose(mat)
-    inversed = robo.m_inverse_SE3(mat)
+    print("Begin script.")
+    
+    t_start = time.time()
+    
+    for i in range(0, 4):
+        fingers.append(f.Finger(i, 4, directory, verbose=False))
+    
+    sym.pprint(fingers[0].joints[0].K)
+    sym.pprint(fingers[0].joints[0].K_inv)
 
     t_end = time.time()
 

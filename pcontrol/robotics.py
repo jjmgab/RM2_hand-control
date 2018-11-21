@@ -3,6 +3,7 @@ import mpmath as mp
 import typing
 import numbers
 import pcontrol
+import pcontrol.finger as f
 from sympy import Point3D
 
 
@@ -281,7 +282,7 @@ class NewtonAlgorithmParameters(object):
         self.max_iterations = max_iterations
 
 
-def inv_kinematics_newton_algorithm(finger: pcontrol.finger, stop_coords, parameters: NewtonAlgorithmParameters):
+def inv_kinematics_newton_algorithm(finger: f.Finger, stop_coords, parameters: NewtonAlgorithmParameters):
     """
     Implementation of Newton algorithm for inverse kinematics.
 
