@@ -13,7 +13,7 @@ class Finger:
         """
             Defines a joint of a finger,
         """
-        def __init__(self, jointcoordinates: Point3D, K, K_inv) -> None:
+        def __init__(self, jointcoordinates: Point3D, K, K_inv = None) -> None:
             assert jointcoordinates is not None, "Joint coordinates must be a valid Point3D object."
             self.coordinates = jointcoordinates
             self.K = K
@@ -81,13 +81,13 @@ class Finger:
         for i in range(0, njoints):
             assert 'K{0}{1}'.format(self.fNumber, i) in [x for x in os.listdir(self.directory) if x[0:2] == 'K{0}'.format(self.fNumber)] \
                 , "There is no data for transformation matrix number {0} of finger {1}.".format(i, self.fNumber)
-            assert 'K_inv{0}{1}'.format(self.fNumber, i) in [x for x in os.listdir(self.directory) if x[0:6] == 'K_inv{0}'.format(self.fNumber)] \
-                , "There is no data for inverse transformation matrix number {0} of finger {1}.".format(i, self.fNumber)
+            # assert 'K_inv{0}{1}'.format(self.fNumber, i) in [x for x in os.listdir(self.directory) if x[0:6] == 'K_inv{0}'.format(self.fNumber)] \
+            #     , "There is no data for inverse transformation matrix number {0} of finger {1}.".format(i, self.fNumber)
 
             K = pt.pickle_out('K{0}{1}'.format(self.fNumber, i), self.directory)
-            K_inv = pt.pickle_out('K_inv{0}{1}'.format(self.fNumber, i), self.directory)
+            # K_inv = pt.pickle_out('K_inv{0}{1}'.format(self.fNumber, i), self.directory)
 
-            self.joints.append(self.Joint(Point3D(), K, K_inv))
+            self.joints.append(self.Joint(Point3D(), K)) #, K_inv))
 
             if verbose:
                 print("Finger {2}: transformation {0}->{1} and {1}->{0} ready .".format(i, i + 1, self.fNumber))

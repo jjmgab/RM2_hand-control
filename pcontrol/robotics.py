@@ -247,12 +247,14 @@ def m_evaluate(matrix, subs):
     assert isinstance(subs, typing.List) and len(subs) > 0 and isinstance(subs[0],
                                                                           typing.Tuple), "'subs' must be a list of tuples with non-zero length."
     # check if one would like to substitute for existing elements
-    assert not False in [element[0] in matrix.atoms() for element in
-                         subs], "Cannot substitute for elements not present in given expression."
+    # assert not False in [element[0] in matrix.atoms() for element in subs], "Cannot substitute for elements not present in given expression."
     # check if one would like to evaluate a matrix
     assert issubclass(matrix.__class__, sym.matrices.MatrixBase), "Cannot evaluate non-matrix."
+    """
+    INVALID
     # check if matrix is square and 4x4
     assert (matrix.shape)[0] == 4 and (matrix.shape)[1] == 4, "Matrix must be square and 4x4."
+    """
 
     return sym.N(matrix.subs(subs), 5, chop=True)
 
