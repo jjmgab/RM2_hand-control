@@ -154,7 +154,7 @@ def m_eom(matrix):
     return matrix.col(-1).row_del(3)
 
 
-def m_jacobian_from_eom(eom, var_prefix=['']):
+def m_jacobian_from_eom(eom, var_prefix=[''], index=0):
     """
     Calculates analytical Jacobian from given equations of motion.
 
@@ -179,7 +179,7 @@ def m_jacobian_from_eom(eom, var_prefix=['']):
                 len(vp) == 1 and (vp[0]).isalpha()), "'var_prefix' must contain single letters at maximum."
 
     # gets all sympy.Symbols defined by 'var_prefix' from the matrix
-    syms = [elem for elem in eom.atoms() if isinstance(elem, sym.Symbol) and str(elem)[0] in var_prefix]
+    syms = [elem for elem in eom.atoms() if isinstance(elem, sym.Symbol) and str(elem)[index] in var_prefix]
 
     # sort in ascending order with respect to index
     sorted(syms, key=lambda elem: str(elem)[2:], reverse=True)
@@ -191,6 +191,45 @@ def m_jacobian_from_eom(eom, var_prefix=['']):
 
     return M
 
+
+def m_jacobian_from_input(eom, input_vars=[]):
+    """
+    Calculates analytical Jacobian from given equations of motion.
+
+    :param eom: vector of equations of motion
+    :param var_prefix: list of prefixes of variables considered as configuration
+    :type eom: object inheriting from sym.matrices.MatrixBase
+    :type var_prefix: list of one-character strings
+    :return: analytical Jacobian
+    :rtype: object inheriting from sym.matrices.MatrixBase
+    """
+
+    # check if one would like to evaluate a matrix
+    assert issubclass(eom.__class__, sym.matrices.MatrixBase), "Cannot evaluate non-matrix."
+    # check if matrix is 1x3 (SymPy Matrix.shape returns a tuple in format (y,x)!)
+    assert (eom.shape)[0] == 3 and (eom.shape)[1] == 1, "Matrix must be 1x3."
+
+    # check if subs is a list of tuples with non-zero length
+    # assert isinstance(var_prefix, typing.List) and len(var_prefix) > 0 and isinstance(var_prefix[0], str), "'subs' must be a list of strings."
+
+    # check if prefixes are single letters
+    # for vp in var_prefix:
+    #     assert len(vp) == 0 or (
+    #             len(vp) == 1 and (vp[0]).isalpha()), "'var_prefix' must contain single letters at maximum."
+
+    # gets all sympy.Symbols defined by 'var_prefix' from the matrix
+    # syms = [elem for elem in eom.atoms() if isinstance(elem, sym.Symbol) and str(elem)[index] in var_prefix]
+    # print([elem for elem in eom.atoms()])
+
+    # sort in ascending order with respect to index
+    sorted(input_vars, key=lambda elem: str(elem)[2:], reverse=True)
+
+    # calculate partial derivatives
+    M = sym.Matrix()
+    for symb in input_vars:
+        M = M.col_insert(-1, sym.diff(eom, symb, 1))
+
+    return M
 
 def m_evaluate(matrix, subs):
     """
@@ -208,12 +247,14 @@ def m_evaluate(matrix, subs):
     assert isinstance(subs, typing.List) and len(subs) > 0 and isinstance(subs[0],
                                                                           typing.Tuple), "'subs' must be a list of tuples with non-zero length."
     # check if one would like to substitute for existing elements
-    assert not False in [element[0] in matrix.atoms() for element in
-                         subs], "Cannot substitute for elements not present in given expression."
+    # assert not False in [element[0] in matrix.atoms() for element in subs], "Cannot substitute for elements not present in given expression."
     # check if one would like to evaluate a matrix
     assert issubclass(matrix.__class__, sym.matrices.MatrixBase), "Cannot evaluate non-matrix."
+    """
+    INVALID
     # check if matrix is square and 4x4
     assert (matrix.shape)[0] == 4 and (matrix.shape)[1] == 4, "Matrix must be square and 4x4."
+    """
 
     return sym.N(matrix.subs(subs), 5, chop=True)
 
