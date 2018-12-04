@@ -231,7 +231,6 @@ def m_jacobian_from_input(eom, input_vars=[]):
 
     return M
 
-
 def m_evaluate(matrix, subs):
     """
     Evaluates the matrix over chosen variable(s).
