@@ -31,8 +31,8 @@ if __name__ == '__main__':
     theta13 = pi/2
 
     theta20 = 0
-    theta21 = 0
-    theta22 = 0
+    theta21 = pi/4
+    theta22 = pi/4
     theta23 = 0
 
     theta30 = 0

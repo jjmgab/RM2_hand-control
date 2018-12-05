@@ -13,33 +13,47 @@ class Finger:
         """
             Defines a joint of a finger,
         """
-        def __init__(self, jointcoordinates: Point3D, K, K_inv = None) -> None:
-            assert jointcoordinates is not None, "Joint coordinates must be a valid Point3D object."
-            self.coordinates = jointcoordinates
-            self.K = K
-            self.K_inv = K_inv
+
+        def __init__(self, jointcoordinates, K, A, q, consts, K_inv=None) -> None:
+            self._coordinates = jointcoordinates
+            self._K = K
+            self._K_inv = K_inv
+            self._A = A
+            self._q = q
+            self._consts = consts
 
         @property
-        def coordinates(self) -> Point3D:
+        def coordinates(self):
             """
                 3Dcoordinations of a joint.
             """
-            return self.coordinates
+            return self._coordinates
 
         @coordinates.setter
-        def coordinates(self, value: Point3D):
-            self.joints_coordinations = value
+        def coordinates(self, value):
+            self._coordinates = value
 
         @property
         def K(self):
             """
-                A transformation related to a joint.
+                A kinematics related to a joint.
             """
             return self._K
 
         @K.setter
         def K(self, value):
             self._K = value
+
+        @property
+        def A(self):
+            """
+                A transformation related to a joint.
+            """
+            return self._A
+
+        @A.setter
+        def A(self, value):
+            self._A = value
 
         @property
         def K_inv(self):
@@ -52,6 +66,27 @@ class Finger:
         def K_inv(self, value):
             self._K_inv = value
 
+        @property
+        def q(self):
+            """
+                A configuration of joint.
+            """
+            return self._q
+
+        @q.setter
+        def q(self, value):
+            self._q = value
+
+        @property
+        def consts(self):
+            """
+                Parameters of joint.
+            """
+            return self._consts
+
+        @consts.setter
+        def consts(self, value):
+            self._consts = value
 
     def __init__(self, number: int, njoints: int, fdir: str, verbose=True):
         """
@@ -68,10 +103,12 @@ class Finger:
         self.directory = fdir
         self.fNumber = number
 
-        assert 'V{0}'.format(self.fNumber) in [x for x in os.listdir(self.directory) if x[0] == 'V'], "There is no data for base of finger number {0}.".format(self.fNumber)
+        assert 'V{0}'.format(self.fNumber) in [x for x in os.listdir(self.directory) if
+                                               x[0] == 'V'], "There is no data for base of finger number {0}.".format(
+            self.fNumber)
 
         self.V = pt.pickle_out('V{0}'.format(self.fNumber), self.directory)
-        
+
         if verbose:
             print("Finger {0}: base coordinates ready".format(self.fNumber))
 
@@ -79,7 +116,8 @@ class Finger:
         self.joints = []
 
         for i in range(0, njoints):
-            assert 'K{0}{1}'.format(self.fNumber, i) in [x for x in os.listdir(self.directory) if x[0:2] == 'K{0}'.format(self.fNumber)] \
+            assert 'K{0}{1}'.format(self.fNumber, i) in [x for x in os.listdir(self.directory) if
+                                                         x[0:2] == 'K{0}'.format(self.fNumber)] \
                 , "There is no data for transformation matrix number {0} of finger {1}.".format(i, self.fNumber)
             # assert 'K_inv{0}{1}'.format(self.fNumber, i) in [x for x in os.listdir(self.directory) if x[0:6] == 'K_inv{0}'.format(self.fNumber)] \
             #     , "There is no data for inverse transformation matrix number {0} of finger {1}.".format(i, self.fNumber)
@@ -87,7 +125,7 @@ class Finger:
             K = pt.pickle_out('K{0}{1}'.format(self.fNumber, i), self.directory)
             # K_inv = pt.pickle_out('K_inv{0}{1}'.format(self.fNumber, i), self.directory)
 
-            self.joints.append(self.Joint(Point3D(), K)) #, K_inv))
+            self.joints.append(self.Joint(None, K, None, None, None))  # , K_inv))
 
             if verbose:
                 print("Finger {2}: transformation {0}->{1} and {1}->{0} ready .".format(i, i + 1, self.fNumber))

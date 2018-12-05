@@ -33,6 +33,20 @@ def m_coord(x, y, z):
     ]), 5, chop=True)
 
 
+def m_distance(matrix_1, matrix_2):
+    """
+    Compute distance between two points
+
+    :param matrix_1: coordinates of point 1
+    :type matrix_1: sym.Matrix
+    :param matrix_2: coordinates of point 2
+    :type matrix_2: sym.Matrix
+    :return: distance between points
+    """
+
+    return (matrix_1 - matrix_2).col(3).norm()
+
+
 def m_rot(axis, variable, use_degrees=True):
     """
     Defines a rotation matrix in Denavit-Hartenberg notation.
@@ -231,6 +245,7 @@ def m_jacobian_from_input(eom, input_vars=[]):
 
     return M
 
+
 def m_evaluate(matrix, subs):
     """
     Evaluates the matrix over chosen variable(s).
@@ -315,54 +330,3 @@ def m_inverse_SE3(matrix) -> sym.matrices.MatrixBase:
     return matrix ** -1
 
 
-class NewtonAlgorithmParameters(object):
-    def __init__(self, min_step_size=1, max_step_size=2, epsilon=0.5, max_iterations=1000):
-        self.min_step_size = min_step_size
-        self.max_step_size = max_step_size
-        self.epsilon = epsilon
-        self.max_iterations = max_iterations
-
-
-def inv_kinematics_newton_algorithm(finger: f.Finger, stop_coords, parameters: NewtonAlgorithmParameters):
-    """
-    Implementation of Newton algorithm for inverse kinematics.
-
-    """
-    assert type(stop_coords) == list and len(stop_coords) == len(finger.joints) \
-        , 'stop_coords must be list with length equal number of joints in finger'
-
-    currentJointsPositions = [coordinate.coordinates for coordinate in finger.joints]
-    errorsForJoints = []
-    for position in currentJointsPositions:
-        error = position.distance(stop_coords[currentJointsPositions.index(position)])
-        errorsForJoints.append(error)
-
-    step = [parameters.max_step_size for i in finger.joints]
-    trajectory = [[] for i in finger.joints]
-    iteration = parameters.max_iterations
-
-    Done = False
-    while not Done:
-        for joint in finger.joints:
-
-            jointNumber = finger.joints.index(joint)
-            currentJointsPositions[jointNumber].coordinates.distance(stop_coords[jointNumber])
-
-            if True \
-                    and iteration < parameters.max_iterations \
-                    and errorsForJoints[jointNumber] > parameters.epsilon \
-                    and step[jointNumber] >= parameters.min_step_size:
-                currentPosition = currentJointsPositions[jointNumber].coordinates + [1]
-                newStart = currentPosition * m_evaluate(finger.joints[jointNumber + 1].K())
-                newError = newStart.distance(stop_coords[jointNumber])
-
-                if newError < errorsForJoints[jointNumber]:
-                    e = newError
-                    currentJointsPositions[jointNumber].coordinates = Point3D(newStart[0:3])
-                    trajectory[jointNumber].append(Point3D(newStart[0:3]))
-                else:
-                    step /= 2
-
-                iteration += 1
-
-    return trajectory

@@ -23,7 +23,9 @@ def initialization():
     
     for i in range(0, 4):
         fingers.append(f.Finger(i, 4, directory, verbose=False))
-    
+
+    parameters = {}
+
     # sym.pprint(fingers[1].V)
     # sym.pprint(fingers[1].joints[0].K)
     # sym.pprint(robo.m_eom(fingers[1].V * fingers[1].joints[0].K * fingers[1].joints[1].K))
@@ -39,6 +41,7 @@ def initialization():
     consts01 = [(L01, 20), (d01, 10)] + consts00
     consts02 = [(L02, 40)] + consts01
     consts03 = [(L03, 15)] + consts02
+    parameters['thumb'] = [consts00,consts01,consts02,consts03]
 
     coords00 = robo.m_eom(robo.m_process(robo.m_evaluate(fingers[0].V * fingers[0].joints[0].K, consts00)))
     coords01 = robo.m_eom(robo.m_process(robo.m_evaluate(fingers[0].V * fingers[0].joints[1].K, consts01)))
@@ -63,6 +66,7 @@ def initialization():
     consts11 = [(L11, 45)] + consts10
     consts12 = [(L12, 30)] + consts11
     consts13 = [(L13, 15)] + consts12
+    parameters['first'] = [consts10, consts11, consts12, consts13]
 
     coords10 = robo.m_eom(robo.m_process(robo.m_evaluate(fingers[1].V * fingers[1].joints[0].K, consts10)))
     coords11 = robo.m_eom(robo.m_process(robo.m_evaluate(fingers[1].V * fingers[1].joints[1].K, consts11)))
@@ -87,6 +91,7 @@ def initialization():
     consts21 = [(L21, 45)] + consts20
     consts22 = [(L22, 30)] + consts21
     consts23 = [(L23, 15)] + consts22
+    parameters['second'] = [consts20, consts21, consts22, consts23]
 
     coords20 = robo.m_eom(robo.m_process(robo.m_evaluate(fingers[2].V * fingers[2].joints[0].K, consts20)))
     coords21 = robo.m_eom(robo.m_process(robo.m_evaluate(fingers[2].V * fingers[2].joints[1].K, consts21)))
@@ -110,6 +115,7 @@ def initialization():
     consts31 = [(L31, 45)] + consts30
     consts32 = [(L32, 30)] + consts31
     consts33 = [(L33, 15)] + consts32
+    parameters['third'] = [consts30, consts31, consts32, consts33]
 
     coords30 = robo.m_eom(robo.m_process(robo.m_evaluate(fingers[3].V * fingers[3].joints[0].K, consts30)))
     coords31 = robo.m_eom(robo.m_process(robo.m_evaluate(fingers[3].V * fingers[3].joints[1].K, consts31)))
@@ -128,7 +134,7 @@ def initialization():
 
     print("End script.")
     print("Time elapsed: {0:.5f} seconds".format(t_end - t_start))
-
+    return parameters
 
 if __name__ == '__main__':
     initialization()
